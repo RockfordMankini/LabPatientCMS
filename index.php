@@ -24,35 +24,38 @@
             }
         }
 
-        if(isset($_POST["medication"])) {
+    }
 
-            $med = $_POST["medication"];
-            $sql = "SELECT * FROM patients
-            WHERE Medications LIKE '%$med%'";
-            $access_result = mysqli_query($dbc, $sql);
+    if(isset($_POST["medication"])) {
+        $med = $_POST["medication"];
+    }
+    else {
+        $med = "";
+    }
 
-            echo "<table>";
+        $sql = "SELECT * FROM patients
+        WHERE Medications LIKE '%$med%'";
+        $access_result = mysqli_query($dbc, $sql);
 
-            while($row = mysqli_fetch_assoc($access_result)) {
-                $firstName = $row["First_Name"];
-                $lastName = $row["Last_Name"];
-                $medications = $row["Medications"];
-                $allergies = $row["Allergies"];
+        echo "<table>";
 
-                echo "<tr>";
-                echo "
-                <td>$firstName</td>
-                <td>$lastName</td>
-                <td>$medications</td>
-                <td>$allergies</td>
-                </tr>";
-            }
+        while($row = mysqli_fetch_assoc($access_result)) {
+            $firstName = $row["First_Name"];
+            $lastName = $row["Last_Name"];
+            $medications = $row["Medications"];
+            $allergies = $row["Allergies"];
+            $id = $row["ID"];
 
-            echo "</table><br>";
-
+            echo "<tr>";
+            echo "
+            <td><a href=patient.php?id=$id>$firstName $lastName</a></td>
+            <td>$medications</td>
+            <td>$allergies</td>
+            </tr>";
         }
 
-    }
+        echo "</table><br>";
+
 
 ?>
 
