@@ -13,3 +13,5 @@ $dbc = new mysqli(
    $db,
    $port
 );
+
+?>

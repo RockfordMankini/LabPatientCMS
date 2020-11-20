@@ -3,41 +3,77 @@
 <h1>Christopher Pleman and Rockford Mankini Web Project</h1>
 <p>This is a website that will manage the information of our lab's patients.</p>
 
-<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-Medication: <input type="text" name="medication">
-
 <?php
-$med = $_POST["medication"];
-?>
+    
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-<input type="submit">
-</form>
-<br>
+        if(isset($_POST["addMed"])) {     
+            $addMed = $_POST["addMed"];
 
-<?php
+            $sql = "INSERT INTO Medications (Name)
+            VALUES ('$addMed')";
 
-	$sql = "SELECT * FROM patients
-	WHERE Medications LIKE '%$med%'";
-    $access_result = mysqli_query($dbc, $sql);
+            // error messasge
+            if(!mysqli_query($dbc, $sql)) {
+                echo "Something went wrong.<br>";
+            }
+            
+            // success message
+            else {
+                echo "$addMed successfully added.<br>";
+            }
+        }
 
-    echo "<table>";
+        if(isset($_POST["medication"])) {
 
-    while($row = mysqli_fetch_assoc($access_result)) {
-    	$firstName = $row["First_Name"];
-    	$lastName = $row["Last_Name"];
-    	$medications = $row["Medications"];
-    	$allergies = $row["Allergies"];
+            $med = $_POST["medication"];
+            $sql = "SELECT * FROM patients
+            WHERE Medications LIKE '%$med%'";
+            $access_result = mysqli_query($dbc, $sql);
 
-    	echo "<tr>";
-    	echo "
-    	<td>$firstName</td>
-    	<td>$lastName</td>
-    	<td>$medications</td>
-    	<td>$allergies</td>
-    	</tr>";
+            echo "<table>";
+
+            while($row = mysqli_fetch_assoc($access_result)) {
+                $firstName = $row["First_Name"];
+                $lastName = $row["Last_Name"];
+                $medications = $row["Medications"];
+                $allergies = $row["Allergies"];
+
+                echo "<tr>";
+                echo "
+                <td>$firstName</td>
+                <td>$lastName</td>
+                <td>$medications</td>
+                <td>$allergies</td>
+                </tr>";
+            }
+
+            echo "</table><br>";
+
+        }
 
     }
 
 ?>
 
-</table>
+<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+Medication: <select id = "medication" name="medication">
+<option value="">None</option>
+<?php
+
+    $sql = "SELECT * FROM medications";
+    $access_result = mysqli_query($dbc, $sql);
+
+    while($row = mysqli_fetch_assoc($access_result)) {
+        $medName = $row["Name"];
+        echo "<option value='$medName'>$medName</option>";
+    }
+
+?>
+<input type="submit">
+</form>
+
+<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+    Add Drug: <input type="text" id="addMed" name="addMed">
+    <input type="submit">
+</form>
