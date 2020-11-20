@@ -1,5 +1,4 @@
-<?php
-	include_once("includes/head.php");
+<?php include_once("includes/head.php");
 
 	$id = $_GET["id"];
 
@@ -68,6 +67,12 @@ $sql = "SELECT
     	$med = $row["Name"];
         if($counter != $rowNum) {
         	echo "$med, ";
+        }
+
+        elseif($med == NULL) {
+
+        	echo " None.";
+
         }
 
         else {
