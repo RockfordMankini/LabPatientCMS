@@ -33,8 +33,7 @@
         $med = "";
     }
 
-        $sql = "SELECT * FROM patients
-        WHERE Medications LIKE '%$med%'";
+        $sql = "SELECT * FROM patients";
         $access_result = mysqli_query($dbc, $sql);
 
         echo "<table>";
@@ -42,15 +41,11 @@
         while($row = mysqli_fetch_assoc($access_result)) {
             $firstName = $row["First_Name"];
             $lastName = $row["Last_Name"];
-            $medications = $row["Medications"];
-            $allergies = $row["Allergies"];
-            $id = $row["ID"];
+            $id = $row["PatientID"];
 
             echo "<tr>";
             echo "
             <td><a href=patient.php?id=$id>$firstName $lastName</a></td>
-            <td>$medications</td>
-            <td>$allergies</td>
             </tr>";
         }
 
