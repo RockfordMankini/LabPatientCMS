@@ -1,7 +1,6 @@
 <?php include_once('includes/head.php');?>
 
-<h1>Christopher Pleman and Rockford Mankini Web Project</h1>
-<p>This is a website that will manage the information of our lab's patients.</p>
+<h1 class="display-4">Patients</h1>
 
 <?php
     
@@ -9,19 +8,18 @@
     $sql = "SELECT * FROM patients";
     $access_result = mysqli_query($dbc, $sql);
 
-    echo "<table>";
+    echo "<ul>";
+
     while($row = mysqli_fetch_assoc($access_result)) {
         $firstName = $row["First_Name"];
         $lastName = $row["Last_Name"];
         $id = $row["PatientID"];
 
-        echo "<tr>";
-        echo "
-        <td><a href=patient.php?id=$id>$firstName $lastName</a></td>
-        </tr>";
+        echo "<li><a href=patient.php?id=$id>$firstName $lastName</a></li>";
     }
-    echo "</table><br>";
     
+    echo "</ul>";
+
 ?>
 
 <!-- THIS WILL BE USED TO FILTER WHO DOES WHAT DRUGS AT SOME POINT
@@ -43,5 +41,4 @@ Medication: <select id = "medication" name="medication">
 </form>
 -->
 
-<a href="add_patient.php">Add a Patient</a><br>
-<a href="drugs.php">Add Drugs</a>
+<?php include_once('includes/footer.php');?>

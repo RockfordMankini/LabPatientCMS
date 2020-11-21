@@ -45,3 +45,5 @@
     Add Drug: <input type="text" id="addMed" name="addMed">
     <input type="submit">
 </form>
+
+<?php include_once('includes/footer.php');?>

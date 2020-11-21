@@ -39,3 +39,5 @@ Last Name: <input type="text" id="lastName" name="lastName">
 
 <input type="submit">
 </form>
+
+<?php include_once('includes/footer.php');?>

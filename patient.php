@@ -100,3 +100,5 @@ Add Medication: <select id = "medication" name="medication">
 ?>
 <input type="submit">
 </form>
+
+<?php include_once('includes/footer.php');?>
